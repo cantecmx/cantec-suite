@@ -419,20 +419,26 @@
   }
   .panel h3{margin:0 0 .35rem;font-size:1.4rem;font-weight:600;letter-spacing:-.01em;color:var(--ink);}
   .panel > p{margin:0 0 1.6rem;color:var(--muted);font-size:.94rem;line-height:1.6;}
-  .items{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.5rem;}
+  .items{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.6rem;}
   .items li a{
-    display:block;
-    padding:.85rem 1rem;
+    display:flex;align-items:center;justify-content:space-between;gap:.75rem;
+    padding:.95rem 1.15rem;
     border-radius:14px;
-    background:rgba(255,255,255,.04);
-    border:1px solid rgba(255,255,255,.1);
-    color:var(--ink);
-    font-size:.95rem;
-    font-weight:500;
-    box-shadow:0 1px 2px rgba(0,0,0,.15);
-    transition:background .25s ease, color .25s ease, transform .25s ease, border-color .25s ease;
+    background:linear-gradient(135deg, var(--gold-l), var(--gold));
+    color:#241c04;
+    font-size:.97rem;
+    font-weight:700;
+    box-shadow:0 4px 12px -3px rgba(242,168,29,.4);
+    transition:transform .15s ease, box-shadow .15s ease, filter .15s ease;
   }
-  .items li a:hover{background:rgba(242,168,29,.16);border-color:rgba(242,168,29,.4);color:var(--gold-l);transform:translateX(2px);}
+  .items li a .item-go{
+    font-size:1.05rem;
+    opacity:.75;
+    transition:transform .15s ease;
+  }
+  .items li a:hover{filter:brightness(1.08);box-shadow:0 6px 16px -2px rgba(242,168,29,.55);}
+  .items li a:hover .item-go{transform:translateX(3px);}
+  .items li a:active{transform:scale(.96);filter:brightness(.92);box-shadow:0 2px 6px -1px rgba(242,168,29,.45);}
 
   @media (prefers-reduced-motion:reduce){
     .card, .card:hover, .panel, .panel::before, .overlay, .hero-glow, .hero-hint, .hero-hint svg, .status-dot, .orb, .spatial-frame{transition:none !important;animation:none !important;}
@@ -572,16 +578,6 @@
       ]
     },
     {
-      id:"kits",
-      glyph:"KIT",
-      kind:"Enlace",
-      title:"Kits actualizados",
-      desc:"Última versión del kit de marca, lista para usarse en cualquier pieza.",
-      items:[
-        {label:"Kit de marca — versión vigente", href:"#", tag:"→"}
-      ]
-    },
-    {
       id:"dashboards",
       glyph:"HD",
       kind:"Enlace",
@@ -686,7 +682,7 @@
   function openPanel(entry){
     lastFocused = document.activeElement;
     var itemsHtml = entry.items.map(function(it){
-      return '<li><a href="' + it.href + '" target="_blank" rel="noopener">' + it.label + '</a></li>';
+      return '<li><a href="' + it.href + '" target="_blank" rel="noopener"><span>' + it.label + '</span><span class="item-go">' + it.tag + '</span></a></li>';
     }).join("");
 
     var media = entry.media
