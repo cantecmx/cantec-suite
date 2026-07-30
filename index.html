@@ -84,7 +84,6 @@
     justify-content:center;
     text-align:center;
     padding:2.75rem 1.5rem .9rem;
-    background:linear-gradient(125deg,#23262c 0%,#34373f 50%,#474d57 100%);
     overflow:hidden;
   }
   .hero-glow{
@@ -132,48 +131,13 @@
     color:#c7ccd4;
     letter-spacing:-.005em;
   }
-  .hero-hint{
-    margin-top:.9rem;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:.3rem;
-    font-size:1.02rem;
-    font-weight:500;
-    color:#aeb3bc;
-    animation:hint-pulse 2.6s ease-in-out infinite;
-  }
-  @keyframes hint-pulse{0%,100%{opacity:.75;}50%{opacity:1;}}
-  .hero-hint svg{width:15px;height:15px;animation:bob 2.2s ease-in-out infinite;}
-  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(4px);}}
-
   /* ---------- BOARD ---------- */
   .board{
     position:relative;
     max-width:1120px;
     margin:0 auto;
-    padding:1.75rem 1.5rem 6rem;
+    padding:2.5rem 1.5rem 6rem;
   }
-  .board-head{
-    text-align:center;
-    max-width:560px;
-    margin:0 auto 1.25rem;
-  }
-  .board-head h2{
-    font-size:1.55rem;
-    font-weight:600;
-    letter-spacing:-.01em;
-    margin:0 0 .3rem;
-    color:var(--ink);
-  }
-  .board-head p{
-    margin:0;
-    color:var(--muted);
-    font-size:.95rem;
-    line-height:1.5;
-  }
-
   .grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -415,7 +379,7 @@
   .items li a:active{transform:scale(.96);filter:brightness(.92);box-shadow:0 2px 6px -1px rgba(242,168,29,.45);}
 
   @media (prefers-reduced-motion:reduce){
-    .card, .card:hover, .panel, .panel::before, .overlay, .hero-glow, .hero-hint, .hero-hint svg, .status-dot, .orb{transition:none !important;animation:none !important;}
+    .card, .card:hover, .panel, .panel::before, .overlay, .hero-glow, .status-dot, .orb{transition:none !important;animation:none !important;}
     .card:hover{transform:none;}
     .card.pulse{animation:none !important;}
     .panel::before{opacity:.55;}
@@ -448,18 +412,10 @@
       <span class="suite-label">Suite</span>
     </div>
     <p class="tagline">Todo en un solo lugar.</p>
-    <p class="hero-hint">
-      Selecciona un panel
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-    </p>
   </div>
 </div>
 
 <main class="board">
-  <div class="board-head">
-    <h2>Panel de control</h2>
-    <p>Seis accesos directos a los recursos, plantillas y tableros que mantienen a Cantec corriendo.</p>
-  </div>
 
   <div class="grid" id="cardGrid"></div>
 </main>
