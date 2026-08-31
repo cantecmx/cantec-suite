@@ -276,6 +276,12 @@
     padding:.28rem .6rem;
     border-radius:100px;
   }
+  .flag-icon{
+    width:13px;height:13px;
+    border-radius:50%;
+    object-fit:cover;
+    flex-shrink:0;
+  }
   .status-dot{
     width:6px;height:6px;border-radius:50%;
     background:var(--gold);
@@ -573,6 +579,7 @@
       id:"presentaciones",
       glyph:"GP",
       kind:"Enlace",
+      countries:["mx"],
       image:true,
       title:"Generador de Identidad Visual",
       desc:"Material de dirección gráfica para creación de presentaciones, manuales y documentos corporativos.",
@@ -584,6 +591,7 @@
       id:"dashboards",
       glyph:"HD",
       kind:"Enlace",
+      countries:["mx"],
       image:true,
       title:"Hub de Dashboards",
       desc:"Los tableros en vivo de cada cuenta, en un solo directorio.",
@@ -595,6 +603,7 @@
       id:"recursos-digitales",
       glyph:"RD",
       kind:"Descargas",
+      countries:["mx","ec"],
       image:true,
       title:"Recursos Digitales",
       desc:"Consulta y descarga de documentación oficial: identidad visual, plantillas, decks institucionales y avisos internos.",
@@ -607,6 +616,7 @@
       id:"academy",
       glyph:"CA",
       kind:"Enlace",
+      countries:["mx"],
       image:true,
       title:"Cantec Academy",
       desc:"Slides y formación interna del equipo.",
@@ -618,6 +628,7 @@
       id:"recursos-comerciales",
       glyph:"RC",
       kind:"Descargas",
+      countries:["mx","ec"],
       image:true,
       title:"Recursos Comerciales",
       desc:"Todo lo necesario para una conversación comercial.",
@@ -629,6 +640,7 @@
     {
       id:"comunidades",
       kind:"Comunidad",
+      countries:["mx","ec"],
       image:true,
       whatsapp:true,
       title:"Comunidades CANTEC",
@@ -643,6 +655,15 @@
   function getAssetSrc(id){
     return (document.getElementById("asset-" + id) || {}).src || "";
   }
+
+  var FLAG_NAMES = {mx:"México", ec:"Ecuador"};
+  function flagsHtml(countries){
+    if(!countries) return "";
+    return countries.map(function(c){
+      return '<img class="flag-icon" src="img/flag-' + c + '.webp" alt="' + FLAG_NAMES[c] + '" title="' + FLAG_NAMES[c] + '">';
+    }).join("");
+  }
+
   var grid = document.getElementById("cardGrid");
 
   DATA.forEach(function(entry){
@@ -654,7 +675,7 @@
       ? (hasAsset ? '<img class="media-banner" alt="">' : '<div class="media-banner media-banner--placeholder">Imagen próximamente</div>')
       : '<span class="glyph">' + entry.glyph + '</span>';
     card.innerHTML =
-      '<span class="card-kind"><span class="status-dot"></span>' + entry.kind + '</span>' +
+      '<span class="card-kind"><span class="status-dot"></span>' + entry.kind + flagsHtml(entry.countries) + '</span>' +
       media +
       '<h3>' + entry.title + '</h3>' +
       '<p>' + entry.desc + '</p>' +
@@ -701,7 +722,7 @@
       : '<span class="panel-glyph">' + entry.glyph + '</span>';
 
     panelContent.innerHTML =
-      media + '<span class="panel-kind"><span class="status-dot"></span>' + entry.kind + '</span>' +
+      media + '<span class="panel-kind"><span class="status-dot"></span>' + entry.kind + flagsHtml(entry.countries) + '</span>' +
       '<h3>' + entry.title + '</h3>' +
       '<p>' + entry.desc + '</p>' +
       '<ul class="items' + (entry.whatsapp ? ' items-whatsapp' : '') + '">' + itemsHtml + '</ul>';
