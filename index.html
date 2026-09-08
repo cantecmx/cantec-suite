@@ -76,9 +76,11 @@
 
   /* ---------- CTA BENEFICIOS ---------- */
   .cta-beneficios{
-    position:relative;
+    position:absolute;
+    top:50%;right:3rem;
+    transform:translateY(-50%);
+    z-index:3;
     display:inline-flex;align-items:center;gap:.6rem;
-    margin-top:1.6rem;
     padding:.85rem 1.7rem;
     border-radius:100px;
     background:rgba(56,189,248,.16);
@@ -98,8 +100,13 @@
     0%,100%{ border-color:rgba(56,189,248,.4); box-shadow:0 4px 14px -4px rgba(56,189,248,.3), 0 0 0 0 rgba(56,189,248,.35); }
     50%{ border-color:rgba(125,211,252,.95); box-shadow:0 4px 22px -2px rgba(56,189,248,.55), 0 0 16px 3px rgba(56,189,248,.4); }
   }
-  .cta-beneficios:hover{background:rgba(56,189,248,.3);color:#e0f6ff;transform:translateY(-2px);}
-  .cta-beneficios:active{transform:scale(.96);}
+  .cta-beneficios:hover{background:rgba(56,189,248,.3);color:#e0f6ff;transform:translateY(calc(-50% - 2px));}
+  .cta-beneficios:active{transform:translateY(-50%) scale(.96);}
+  @media (max-width:900px){
+    .cta-beneficios{position:static;transform:none;margin:1.6rem auto 0;}
+    .cta-beneficios:hover{transform:translateY(-2px);}
+    .cta-beneficios:active{transform:scale(.96);}
+  }
   @media (max-width:600px){
     .cta-beneficios{padding:.7rem 1.3rem;font-size:.9rem;}
   }
@@ -502,11 +509,11 @@
       <span class="suite-label">Suite</span>
     </div>
     <p class="tagline">Todo en un solo lugar.</p>
-    <a class="cta-beneficios" href="https://cantecbeneficios.netlify.app/" target="_blank" rel="noopener">
-      <span>Cantec Beneficios</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
-    </a>
   </div>
+  <a class="cta-beneficios" href="https://cantecbeneficios.netlify.app/" target="_blank" rel="noopener">
+    <span>Cantec Beneficios</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+  </a>
 </div>
 
 <main class="board">
