@@ -74,6 +74,37 @@
     100%{transform:translate(-34px,26px) scale(1);}
   }
 
+  /* ---------- CTA BENEFICIOS ---------- */
+  .cta-beneficios{
+    position:fixed;
+    top:1.25rem;right:1.5rem;
+    z-index:40;
+    display:flex;align-items:center;gap:.45rem;
+    padding:.65rem 1.1rem;
+    border-radius:100px;
+    background:rgba(56,189,248,.14);
+    border:1.5px solid rgba(56,189,248,.5);
+    color:#7dd3fc;
+    font-family:var(--sans);
+    font-size:.82rem;
+    font-weight:700;
+    letter-spacing:.01em;
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    animation:ctaPulse 2.4s ease-in-out infinite;
+    transition:background .2s ease, color .2s ease, transform .15s ease, box-shadow .2s ease;
+  }
+  .cta-beneficios svg{width:14px;height:14px;flex-shrink:0;}
+  @keyframes ctaPulse{
+    0%,100%{ border-color:rgba(56,189,248,.4); box-shadow:0 4px 14px -4px rgba(56,189,248,.3), 0 0 0 0 rgba(56,189,248,.35); }
+    50%{ border-color:rgba(125,211,252,.95); box-shadow:0 4px 20px -2px rgba(56,189,248,.55), 0 0 14px 2px rgba(56,189,248,.4); }
+  }
+  .cta-beneficios:hover{background:rgba(56,189,248,.28);color:#e0f6ff;transform:translateY(-2px);}
+  .cta-beneficios:active{transform:scale(.96);}
+  @media (max-width:600px){
+    .cta-beneficios{top:.85rem;right:.85rem;padding:.5rem .85rem;font-size:.74rem;}
+  }
+
   /* ---------- HERO ---------- */
   .hero{
     position:relative;
@@ -436,12 +467,13 @@
   .items-whatsapp li a:active{box-shadow:0 2px 6px -1px rgba(37,211,102,.5);}
 
   @media (prefers-reduced-motion:reduce){
-    .card, .card:hover, .panel, .panel::before, .overlay, .hero-glow, .status-dot, .orb, .social-bar a{transition:none !important;animation:none !important;}
+    .card, .card:hover, .panel, .panel::before, .overlay, .hero-glow, .status-dot, .orb, .social-bar a, .cta-beneficios{transition:none !important;animation:none !important;}
     .card:hover{transform:none;}
     .card.pulse{animation:none !important;}
     .panel::before{opacity:.55;}
     .status-dot{opacity:.9;}
     .social-bar a{border-color:rgba(242,168,29,.45);}
+    .cta-beneficios{border-color:rgba(56,189,248,.7);}
   }
 </style>
 </head>
@@ -462,6 +494,11 @@
   <img id="asset-recursos-comerciales" src="img/recursos-comerciales.png" alt="">
   <img id="asset-recursos-digitales" src="img/recursos-digitales.png" alt="">
 </div>
+
+<a class="cta-beneficios" href="https://cantecbeneficios.netlify.app/" target="_blank" rel="noopener">
+  <span>Cantec Beneficios</span>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+</a>
 
 <div class="hero">
   <div class="hero-glow"></div>
