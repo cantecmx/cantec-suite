@@ -207,9 +207,13 @@
     .beneficios-pill:hover, .beneficios-pill:focus-visible{transform:translateY(-2px);}
   }
   @media (max-width:600px){
-    .beneficios-pill{width:min(280px,90vw);padding:.45rem 1.1rem .45rem .45rem;}
-    .b-orb{width:40px;height:40px;}
-    .b-text strong{font-size:.95rem;}
+    .beneficios-pill{width:min(280px,90vw);padding:.5rem 1rem .5rem .45rem;gap:.6rem;}
+    .b-orb{width:38px;height:38px;}
+    .b-orb svg{width:19px;height:19px;}
+    .b-text{flex:1 1 auto;min-width:0;}
+    .b-text strong{font-size:.92rem;}
+    .b-text small{white-space:normal;font-size:.66rem;line-height:1.25;opacity:.82;}
+    .b-chevron{margin-left:.4rem;}
   }
 
   /* ---------- HERO ---------- */
@@ -784,6 +788,7 @@
     }
 
     pill.addEventListener("pointerenter", burst);
+    pill.addEventListener("touchstart", burst, {passive:true});
   })();
 
   var ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
