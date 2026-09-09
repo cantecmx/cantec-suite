@@ -74,41 +74,116 @@
     100%{transform:translate(-34px,26px) scale(1);}
   }
 
-  /* ---------- CTA BENEFICIOS ---------- */
-  .cta-beneficios{
+  /* ---------- CTA BENEFICIOS (bienestar) ---------- */
+  .beneficios-widget{
+    --b-cyan:#42F5E6;
+    --b-turq:#21D9CB;
+    --b-green:#53E69D;
+    --b-white:#F1FFFF;
+    --b-dark:#09262D;
     position:absolute;
     top:50%;left:calc(50% + 26rem);
     transform:translateY(calc(-50% + 1.5rem));
     z-index:3;
-    display:inline-flex;align-items:center;gap:.7rem;
-    padding:1.05rem 2.1rem;
-    border-radius:100px;
-    background:rgba(56,189,248,.16);
-    border:2px solid rgba(56,189,248,.5);
-    color:#a5e6ff;
-    font-family:var(--sans);
+    display:inline-block;
+  }
+  .beneficios-pill{
+    position:relative;z-index:2;
+    display:inline-flex;align-items:center;gap:.85rem;
+    width:min(310px,78vw);
+    padding:.5rem 1.35rem .5rem .5rem;
+    border-radius:999px;
+    background:linear-gradient(90deg, rgba(10,35,42,.9), rgba(8,55,55,.85));
+    border:1.25px solid rgba(66,245,230,.55);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    box-shadow:
+      0 0 0 1px rgba(33,217,203,.12),
+      0 6px 20px -6px rgba(9,38,45,.6),
+      0 0 22px -6px rgba(33,217,203,.4),
+      0 0 30px -10px rgba(83,230,157,.3);
+    animation:beneficiosGlow 3.6s ease-in-out infinite;
+    transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  }
+  @keyframes beneficiosGlow{
+    0%,100%{
+      border-color:rgba(66,245,230,.45);
+      box-shadow:0 0 0 1px rgba(33,217,203,.1), 0 6px 20px -6px rgba(9,38,45,.6), 0 0 20px -6px rgba(33,217,203,.32), 0 0 28px -10px rgba(83,230,157,.24);
+    }
+    50%{
+      border-color:rgba(66,245,230,.8);
+      box-shadow:0 0 0 1px rgba(33,217,203,.18), 0 6px 22px -6px rgba(9,38,45,.65), 0 0 26px -4px rgba(33,217,203,.5), 0 0 36px -8px rgba(83,230,157,.4);
+    }
+  }
+  .beneficios-pill:hover, .beneficios-pill:focus-visible{
+    transform:translateY(-2px) scale(1.015);
+    box-shadow:
+      0 0 0 1px rgba(33,217,203,.2),
+      0 10px 26px -6px rgba(9,38,45,.65),
+      0 0 30px -4px rgba(33,217,203,.6),
+      0 0 40px -8px rgba(83,230,157,.45);
+  }
+  .beneficios-pill:focus-visible{outline:2px solid var(--b-cyan);outline-offset:3px;}
+  .beneficios-pill:active{transform:translateY(-1px) scale(.99);}
+  .b-orb{
+    position:relative;flex-shrink:0;
+    width:44px;height:44px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(160deg, var(--b-turq), var(--b-green));
+    box-shadow:0 0 12px rgba(66,245,230,.55), 0 0 0 3px rgba(8,38,45,.6);
+    color:var(--b-white);
+    transition:box-shadow .3s ease;
+  }
+  .beneficios-pill:hover .b-orb{box-shadow:0 0 18px rgba(66,245,230,.75), 0 0 0 3px rgba(8,38,45,.6);}
+  .b-orb svg{width:21px;height:21px;}
+  .b-divider{width:1px;height:32px;background:rgba(241,255,255,.3);flex-shrink:0;}
+  .b-text{display:flex;flex-direction:column;line-height:1.2;min-width:0;}
+  .b-text strong{font-size:1.03rem;font-weight:700;color:var(--b-white);letter-spacing:.01em;}
+  .b-text small{font-size:.72rem;font-weight:500;color:var(--b-cyan);opacity:.78;white-space:nowrap;}
+  .b-chevron{width:18px;height:18px;flex-shrink:0;margin-left:auto;color:var(--b-cyan);transition:transform .3s ease;}
+  .beneficios-pill:hover .b-chevron{transform:translateX(4px);}
+
+  .b-icon{position:absolute;pointer-events:none;color:var(--b-cyan);filter:drop-shadow(0 0 4px rgba(66,245,230,.5));}
+  .b-icon-plus{top:-20px;left:6px;width:19px;height:19px;color:var(--b-green);opacity:.85;animation:bTwinkle 3.2s ease-in-out infinite;}
+  .b-icon-brain{bottom:-16px;left:-22px;width:23px;height:23px;opacity:.7;animation:bTwinkle 3.8s ease-in-out infinite .6s;}
+  .b-icon-apple{top:-22px;right:14px;width:20px;height:20px;color:var(--b-green);opacity:.8;animation:bTwinkle 3.4s ease-in-out infinite 1.1s;}
+  @keyframes bTwinkle{0%,100%{opacity:.45;}50%{opacity:.9;}}
+
+  .b-spark{position:absolute;border-radius:50%;pointer-events:none;animation:bSparkTwinkle 3s ease-in-out infinite;}
+  .b-spark-1{top:-10px;left:-14px;width:3px;height:3px;background:var(--b-cyan);animation-delay:.2s;}
+  .b-spark-2{top:8px;left:-30px;width:2px;height:2px;background:var(--b-green);filter:blur(.5px);animation-delay:1.1s;}
+  .b-spark-3{top:-28px;left:60px;width:2px;height:2px;background:var(--b-cyan);animation-delay:1.8s;}
+  .b-spark-4{bottom:-14px;left:40px;width:3px;height:3px;background:var(--b-green);filter:blur(.5px);animation-delay:.7s;}
+  .b-spark-5{top:20px;right:-18px;width:2px;height:2px;background:var(--b-cyan);animation-delay:2.2s;}
+  .b-spark-6{bottom:-4px;right:-24px;width:3px;height:3px;background:var(--b-green);filter:blur(.6px);animation-delay:1.5s;}
+  @keyframes bSparkTwinkle{0%,100%{opacity:.2;transform:scale(.8);}50%{opacity:.9;transform:scale(1.15);}}
+
+  .b-note{
+    position:absolute;top:calc(100% + 10px);left:calc(100% + 6px);
+    width:120px;
+    pointer-events:none;
+    color:#c9fff4;
+    font-family:"Segoe Script","Bradley Hand","Comic Sans MS",cursive;
     font-size:1.15rem;
-    font-weight:700;
-    letter-spacing:.01em;
-    backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
-    animation:ctaPulse 2.4s ease-in-out infinite;
-    transition:background .2s ease, color .2s ease, transform .15s ease, box-shadow .2s ease;
+    line-height:1.3;
+    font-style:italic;
+    transform:rotate(-3deg);
+    text-shadow:0 0 8px rgba(66,245,230,.35);
   }
-  .cta-beneficios svg{width:20px;height:20px;flex-shrink:0;}
-  @keyframes ctaPulse{
-    0%,100%{ border-color:rgba(56,189,248,.4); box-shadow:0 4px 14px -4px rgba(56,189,248,.3), 0 0 0 0 rgba(56,189,248,.35); }
-    50%{ border-color:rgba(125,211,252,.95); box-shadow:0 4px 22px -2px rgba(56,189,248,.55), 0 0 16px 3px rgba(56,189,248,.4); }
+  .b-note-arrow{position:absolute;top:-34px;left:-6px;width:60px;height:44px;overflow:visible;}
+  @media (max-width:1200px){
+    .b-note, .b-icon-brain, .b-spark-2, .b-spark-6{display:none;}
   }
-  .cta-beneficios:hover{background:rgba(56,189,248,.3);color:#e0f6ff;transform:translateY(calc(-50% + 1.5rem - 2px));}
-  .cta-beneficios:active{transform:translateY(calc(-50% + 1.5rem)) scale(.96);}
   @media (max-width:900px){
-    .cta-beneficios{position:static;transform:none;margin:1.6rem auto 0;}
-    .cta-beneficios:hover{transform:translateY(-2px);}
-    .cta-beneficios:active{transform:scale(.96);}
+    .beneficios-widget{position:static;transform:none;margin:1.6rem auto 0;display:flex;justify-content:center;}
+    .b-icon, .b-spark, .b-note{display:none;}
+    .beneficios-pill:hover, .beneficios-pill:focus-visible{transform:translateY(-2px);}
   }
   @media (max-width:600px){
-    .cta-beneficios{padding:.85rem 1.6rem;font-size:1rem;}
+    .beneficios-pill{width:min(280px,90vw);padding:.45rem 1.1rem .45rem .45rem;}
+    .b-orb{width:40px;height:40px;}
+    .b-text strong{font-size:.95rem;}
   }
 
   /* ---------- HERO ---------- */
@@ -473,13 +548,15 @@
   .items-whatsapp li a:active{box-shadow:0 2px 6px -1px rgba(37,211,102,.5);}
 
   @media (prefers-reduced-motion:reduce){
-    .card, .card:hover, .panel, .panel::before, .overlay, .hero-glow, .status-dot, .orb, .social-bar a, .cta-beneficios{transition:none !important;animation:none !important;}
+    .card, .card:hover, .panel, .panel::before, .overlay, .hero-glow, .status-dot, .orb, .social-bar a, .beneficios-pill, .b-icon, .b-spark{transition:none !important;animation:none !important;}
     .card:hover{transform:none;}
     .card.pulse{animation:none !important;}
     .panel::before{opacity:.55;}
     .status-dot{opacity:.9;}
     .social-bar a{border-color:rgba(242,168,29,.45);}
-    .cta-beneficios{border-color:rgba(56,189,248,.7);}
+    .beneficios-pill{border-color:rgba(66,245,230,.7);}
+    .b-icon{opacity:.75;}
+    .b-spark{opacity:.6;transform:none;}
   }
 </style>
 </head>
@@ -510,10 +587,35 @@
     </div>
     <p class="tagline">Todo en un solo lugar.</p>
   </div>
-  <a class="cta-beneficios" href="https://cantecbeneficios.netlify.app/" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
-    <span>Cantec Beneficios</span>
-  </a>
+  <div class="beneficios-widget">
+    <span class="b-spark b-spark-1" aria-hidden="true"></span>
+    <span class="b-spark b-spark-2" aria-hidden="true"></span>
+    <span class="b-spark b-spark-3" aria-hidden="true"></span>
+    <span class="b-spark b-spark-4" aria-hidden="true"></span>
+    <span class="b-spark b-spark-5" aria-hidden="true"></span>
+    <span class="b-spark b-spark-6" aria-hidden="true"></span>
+
+    <svg class="b-icon b-icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+    <svg class="b-icon b-icon-brain" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 3a3 3 0 0 0-3 3v.3A3.5 3.5 0 0 0 4 9.5 3.5 3.5 0 0 0 5.6 12 3.5 3.5 0 0 0 4 15a3.5 3.5 0 0 0 3 3.46V19a3 3 0 0 0 3 3"/><path d="M14.5 3a3 3 0 0 1 3 3v.3A3.5 3.5 0 0 1 20 9.5 3.5 3.5 0 0 1 18.4 12 3.5 3.5 0 0 1 20 15a3.5 3.5 0 0 1-3 3.46V19a3 3 0 0 1-3 3"/><path d="M9.5 3v18M14.5 3v18"/></svg>
+    <svg class="b-icon b-icon-apple" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c1-2 3-3 5-2 0 2-1 4-3 4"/><path d="M12 8c-3.5 0-6 2.7-6 6.5C6 18.5 9 22 12 22s6-3.5 6-7.5C18 10.7 15.5 8 12 8Z"/></svg>
+
+    <a class="beneficios-pill" href="https://cantecbeneficios.netlify.app/" target="_blank" rel="noopener" aria-label="Cantec Beneficios: salud, psicología y nutrición">
+      <span class="b-orb">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/><path d="M3.22 12H9l1.5-3L13 15l1.5-3H21"/></svg>
+      </span>
+      <span class="b-divider"></span>
+      <span class="b-text">
+        <strong>Cantec Beneficios</strong>
+        <small>Salud, psicología y nutrición</small>
+      </span>
+      <svg class="b-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </a>
+
+    <div class="b-note" aria-hidden="true">
+      <svg class="b-note-arrow" viewBox="0 0 60 44" fill="none"><path d="M52 4C36 6 14 14 8 32" stroke="#8FF7EA" stroke-width="1.6" stroke-linecap="round"/><path d="M4 24 L8 32 L16 29" stroke="#8FF7EA" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Tu bienestar<br>también<br>es parte de<br>CANTEC
+    </div>
+  </div>
 </div>
 
 <main class="board">
