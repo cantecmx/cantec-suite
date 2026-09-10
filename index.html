@@ -549,25 +549,29 @@
   .panel h3{margin:0 0 .35rem;font-size:1.4rem;font-weight:600;letter-spacing:-.01em;color:var(--ink);}
   .panel > p{margin:0 0 1.6rem;color:var(--muted);font-size:.94rem;line-height:1.6;}
   .items{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.6rem;}
-  .items li a{
+  .items li a, .items li button.video-trigger{
     display:flex;align-items:center;justify-content:space-between;gap:.75rem;
+    width:100%;
     padding:.95rem 1.15rem;
     border-radius:14px;
+    border:none;
+    cursor:pointer;
     background:linear-gradient(135deg, var(--gold-l), var(--gold));
     color:#241c04;
+    font-family:var(--sans);
     font-size:.97rem;
     font-weight:700;
     box-shadow:0 4px 12px -3px rgba(242,168,29,.4);
     transition:transform .15s ease, box-shadow .15s ease, filter .15s ease;
   }
-  .items li a .item-go{
+  .items li a .item-go, .items li button.video-trigger .item-go{
     font-size:1.05rem;
     opacity:.75;
     transition:transform .15s ease;
   }
-  .items li a:hover{filter:brightness(1.08);box-shadow:0 6px 16px -2px rgba(242,168,29,.55);}
-  .items li a:hover .item-go{transform:translateX(3px);}
-  .items li a:active{transform:scale(.96);filter:brightness(.92);box-shadow:0 2px 6px -1px rgba(242,168,29,.45);}
+  .items li a:hover, .items li button.video-trigger:hover{filter:brightness(1.08);box-shadow:0 6px 16px -2px rgba(242,168,29,.55);}
+  .items li a:hover .item-go, .items li button.video-trigger:hover .item-go{transform:translateX(3px);}
+  .items li a:active, .items li button.video-trigger:active{transform:scale(.96);filter:brightness(.92);box-shadow:0 2px 6px -1px rgba(242,168,29,.45);}
 
   .items-whatsapp li a{
     background:linear-gradient(135deg, #34e07f, #1fbf5c);
@@ -577,8 +581,44 @@
   .items-whatsapp li a:hover{box-shadow:0 6px 16px -2px rgba(37,211,102,.6);}
   .items-whatsapp li a:active{box-shadow:0 2px 6px -1px rgba(37,211,102,.5);}
 
+  /* ---------- VIDEO OVERLAY (dentro del panel) ---------- */
+  .video-overlay{
+    position:fixed;inset:0;z-index:70;
+    background:rgba(4,5,7,.75);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    display:flex;align-items:center;justify-content:center;
+    padding:2rem 1.25rem;
+    opacity:0;pointer-events:none;
+    transition:opacity .25s ease;
+  }
+  .video-overlay.open{opacity:1;pointer-events:auto;}
+  .video-modal{
+    position:relative;
+    width:min(760px,100%);
+    background:#000;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 30px 70px -20px rgba(0,0,0,.7);
+    transform:scale(.96);
+    transition:transform .25s ease;
+  }
+  .video-overlay.open .video-modal{transform:scale(1);}
+  .video-modal video{display:block;width:100%;max-height:80vh;background:#000;}
+  .video-close{
+    position:absolute;top:.75rem;right:.75rem;z-index:2;
+    width:32px;height:32px;border-radius:50%;
+    border:1px solid rgba(255,255,255,.25);
+    background:rgba(0,0,0,.5);
+    color:#fff;
+    cursor:pointer;font-size:.95rem;
+    display:flex;align-items:center;justify-content:center;
+    transition:background .2s ease;
+  }
+  .video-close:hover{background:var(--gold);color:#241c04;border-color:var(--gold);}
+
   @media (prefers-reduced-motion:reduce){
-    .card, .card:hover, .panel, .panel::before, .overlay, .hero-glow, .status-dot, .orb, .social-bar a, .beneficios-pill, .b-icon, .b-spark{transition:none !important;animation:none !important;}
+    .card, .card:hover, .panel, .panel::before, .overlay, .hero-glow, .status-dot, .orb, .social-bar a, .beneficios-pill, .b-icon, .b-spark, .video-overlay, .video-modal{transition:none !important;animation:none !important;}
     .card:hover{transform:none;}
     .card.pulse{animation:none !important;}
     .panel::before{opacity:.55;}
@@ -669,6 +709,13 @@
   <div class="panel" id="panel" role="dialog" aria-modal="true">
     <button class="panel-close" id="panelClose" aria-label="Cerrar">✕</button>
     <div id="panelContent"></div>
+  </div>
+</div>
+
+<div class="video-overlay" id="videoOverlay">
+  <div class="video-modal" role="dialog" aria-modal="true">
+    <button class="video-close" id="videoClose" aria-label="Cerrar video">✕</button>
+    <video id="videoPlayer" controls playsinline></video>
   </div>
 </div>
 
@@ -805,7 +852,8 @@
       desc:"Todo lo necesario para una conversación comercial.",
       items:[
         {label:"Presentaciones y brochures", href:"https://drive.google.com/drive/folders/1i3-FnNlySUaPV1RM5snABbxce05XBSOI?usp=sharing", tag:"↓"},
-        {label:"Cotizador (beta)", href:"cotizador.html", tag:"→"}
+        {label:"Cotizador (beta)", href:"cotizador.html", tag:"→"},
+        {label:"Video comercial", href:"video/recursos-comerciales.mp4", tag:"▶", video:true}
       ]
     },
     {
@@ -933,6 +981,9 @@
   function openPanel(entry){
     lastFocused = document.activeElement;
     var itemsHtml = entry.items.map(function(it){
+      if(it.video){
+        return '<li><button type="button" class="video-trigger" data-src="' + it.href + '"><span>' + it.label + '</span><span class="item-go">' + it.tag + '</span></button></li>';
+      }
       return '<li><a href="' + it.href + '" target="_blank" rel="noopener"><span>' + it.label + '</span><span class="item-go">' + it.tag + '</span></a></li>';
     }).join("");
 
@@ -966,6 +1017,31 @@
   panelClose.addEventListener("click", closePanel);
   overlay.addEventListener("click", function(e){ if(e.target === overlay) closePanel(); });
   document.addEventListener("keydown", function(e){ if(e.key === "Escape") closePanel(); });
+
+  var videoOverlay = document.getElementById("videoOverlay");
+  var videoPlayer = document.getElementById("videoPlayer");
+  var videoClose = document.getElementById("videoClose");
+
+  function openVideo(src){
+    videoPlayer.src = src;
+    videoOverlay.classList.add("open");
+    videoPlayer.play().catch(function(){});
+  }
+
+  function closeVideo(){
+    videoOverlay.classList.remove("open");
+    videoPlayer.pause();
+    videoPlayer.removeAttribute("src");
+    videoPlayer.load();
+  }
+
+  panelContent.addEventListener("click", function(e){
+    var trigger = e.target.closest(".video-trigger");
+    if(trigger) openVideo(trigger.getAttribute("data-src"));
+  });
+  videoClose.addEventListener("click", closeVideo);
+  videoOverlay.addEventListener("click", function(e){ if(e.target === videoOverlay) closeVideo(); });
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape" && videoOverlay.classList.contains("open")) closeVideo(); });
 
 })();
 </script>
