@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CV Corporativo · Cantec</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;background:#0a0a0a;overflow:hidden}
+  #cv-frame{position:fixed;inset:0;width:100%;height:100%;border:0;display:block;background:#0a0a0a}
+  #cv-mode{position:fixed;left:16px;top:16px;z-index:9999;display:flex;align-items:center;gap:8px;padding:9px 16px;border:1px solid rgba(242,176,47,.75);border-radius:999px;background:rgba(10,10,10,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#f2b02f;font-family:Poppins,sans-serif;font-size:13px;font-weight:600;letter-spacing:.16em;cursor:pointer}
+  #cv-mode:hover{background:#f2b02f;color:#0A0A0A}
+  #cv-mode svg{width:16px;height:16px}
+</style>
+</head>
+<body>
+<button type="button" id="cv-mode" title="Presentación / Móvil">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"></rect><path d="M11 18.6h2"></path></svg>
+  <span id="cv-mode-label">MÓVIL</span>
+</button>
+<iframe id="cv-frame" title="CV Corporativo Cantec" allow="fullscreen"></iframe>
+<script>
+  // Presentación = horizontal (cv-presentacion.html) · Móvil = vertical (cv-movil.html)
+  var SRC = { deck: 'cv-presentacion.html', mobile: 'cv-movil.html' };
+  var frame = document.getElementById('cv-frame');
+  var label = document.getElementById('cv-mode-label');
+  var params = new URLSearchParams(location.search);
+  var mode = params.get('modo') === 'movil' ? 'mobile'
+           : params.get('modo') === 'presentacion' ? 'deck'
+           : (window.matchMedia('(max-width: 768px), (orientation: portrait)').matches ? 'mobile' : 'deck');
+
+  function show(m){
+    mode = m;
+    frame.src = SRC[m] + (m === 'deck' ? location.hash : '');
+    label.textContent = m === 'deck' ? 'MÓVIL' : 'PRESENTACIÓN';
+    var q = new URLSearchParams(location.search);
+    q.set('modo', m === 'deck' ? 'presentacion' : 'movil');
+    history.replaceState(null, '', '?' + q.toString() + location.hash);
+  }
+  document.getElementById('cv-mode').addEventListener('click', function(){ show(mode === 'deck' ? 'mobile' : 'deck'); });
+  // El foco va al iframe para que las flechas del teclado avancen las diapositivas
+  frame.addEventListener('load', function(){ try { frame.contentWindow.focus(); } catch(e){} });
+  show(mode);
+</script>
+</body>
+</html>
